@@ -27,7 +27,29 @@
       }
       return cookieValue;
   }
-  const csrftoken = getToken('csrftoken');     
+  const csrftoken = getToken('csrftoken');
+  
+  function getCookie(name) {
+    var cookieArr = document.cookie.split(";");
+
+    for (var i = 0; i < cookieArr.length; i++) {
+      var cookiePair = cookieArr[i].split("=");
+
+      if (name == cookiePair[0].trim()) {
+        return decodeURIComponent(cookiePair[1]);
+
+      }
+    }
+    return null;
+  }
+  var cart = JSON.parse(getCookie('cart'))
+  if (cart == undefined){
+    cart={}
+    console.log('Cart was created')
+    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+  }
+  console.log('Cart:' , cart)
+
     // </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
@@ -37,7 +59,7 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'store' %}">Ecom</a>
+        <a class="navbar-brand" href="{% url 'store' %}">SeaFoods</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,7 +67,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'store' %}">Store <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'store' %}">All items are Assorted <span class="sr-only"></span></a>
             </li>
           </ul>
           <div class="form-inline my-2 my-lg-0">
